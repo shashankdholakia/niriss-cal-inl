@@ -32,7 +32,7 @@ def main(args):
             data_corrected = uncal_data / correction
             
             # Save the corrected data to a new FITS file
-            hdu = fits.PrimaryHDU(data_corrected.astype(np.uint16))
+            hdu = fits.PrimaryHDU(data_corrected.astype(np.float32))
             hdu.writeto(os.path.join(output_path, f'{fits_file}'), overwrite=True)
 
 
