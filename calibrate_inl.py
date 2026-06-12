@@ -4,7 +4,7 @@ from astropy.io import fits
 import argparse
 
 def eval_fourier_counts(data, theta, periods):
-    fs = np.zeros_like(data)
+    fs = np.zeros_like(data, dtype=float)
     K = periods.size
     
     for k in range(K):
@@ -25,7 +25,7 @@ def main(args):
     for fits_file in os.listdir(input_path):
         if fits_file.endswith('.fits'):
             data = fits.open(os.path.join(input_path, fits_file))
-            uncal_data = data[1].data['COUNTS']
+            uncal_data = data[1].data
             periods_grid = np.asarray([1024.0/3.0, 1024.0/2.0, 1024.0])
             theta = np.load("fourier_series_amplitudes.npy")
             correction = 1.0 + eval_fourier_counts(uncal_data, theta, periods_grid)
